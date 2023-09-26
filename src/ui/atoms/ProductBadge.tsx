@@ -10,7 +10,7 @@ export const ProductBadge = ({ product: { category, price, name } }: Props) => {
     <div className="flex flex-col">
       <span className="text-xl">{name}</span>
       <span className="text-xs">{category}</span>
-      <span className="mt-2 text-4xl">{formatPrice(price)}</span>
+      <h2 className="mt-2">{formatPrice(price)}</h2>
     </div>
   );
 };
