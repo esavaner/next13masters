@@ -10,11 +10,14 @@ type Props = {
 
 export const ActiveLink = ({ href, children }: Props) => {
   const pathname = usePathname();
-  const isActive = pathname === href;
+  const isActive = href === '/' ? pathname === href : pathname.includes(href);
   return (
     <Link
       href={href}
-      className={clsx(`text-blue-400 hover:text-blue-600`, { underline: isActive })}
+      className={clsx(
+        ` border-b  text-blue-400 hover:text-blue-600`,
+        isActive ? 'border-b-slate-800' : 'border-b-slate-50',
+      )}
       {...(isActive && { 'aria-current': true })}
     >
       {children}

@@ -1,41 +1,34 @@
-import { type ProductItemType } from '@/ui/types/Products.types';
+import { executeGraphql } from './utils';
+import {
+  ProductsGetListDocument,
+  ProductsGetByCategorySlugDocument,
+  ProductGetByIdDocument,
+  ProductsCountDocument,
+} from '@/gql/graphql';
 
-type ProductResponse = {
-  id: string;
-  title: string;
-  price: number;
-  description: string;
-  category: string;
-  rating: {
-    rate: number;
-    count: number;
-  };
-  image: string;
-  longDescription: string;
+export const getProductsList = async (first: number = 20, skip: number = 0) => {
+  const res = await executeGraphql(ProductsGetListDocument, { skip, first });
+  return res.products;
 };
 
-export const mapProductResponse = (p: ProductResponse): ProductItemType => {
-  return {
-    id: p.id,
-    category: p.category,
-    name: p.title,
-    price: p.price,
-    description: p.description,
-    image: {
-      src: p.image,
-      alt: p.title,
-    },
-  };
+export const getProductsByCategorySlug = async (
+  slug: string,
+  first: number = 20,
+  skip: number = 0,
+) => {
+  const products = (await executeGraphql(ProductsGetByCategorySlugDocument, { slug, skip, first }))
+    .categories[0]?.products;
+
+  return products;
 };
 
-export const getProducts = async () => {
-  const res = await fetch('https://naszsklep-api.vercel.app/api/products');
-  const productRes = (await res.json()) as ProductResponse[];
-  return productRes.map(mapProductResponse);
+export const getProductById = async (id: string) => {
+  const product = (await executeGraphql(ProductGetByIdDocument, { id })).products[0];
+  return product;
 };
 
-export const getProductById = async (id: ProductItemType['id']) => {
-  const res = await fetch(`https://naszsklep-api.vercel.app/api/products/${id}`);
-  const productRes = (await res.json()) as ProductResponse;
-  return mapProductResponse(productRes);
+export const getProductsCount = async () => {
+  const count = (await executeGraphql(ProductsCountDocument, {})).productsConnection.aggregate
+    .count;
+  return count;
 };

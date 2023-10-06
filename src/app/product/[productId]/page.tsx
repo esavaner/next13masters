@@ -1,6 +1,9 @@
 import { type Metadata } from 'next';
-import { getProductById } from '@/api/products';
+import { notFound } from 'next/navigation';
+import { Suspense } from 'react';
+import { getProductById, getProductsList } from '@/api/products';
 import { ProductListItem } from '@/ui/molecues/ProductListItem';
+import { RelatedProductList } from '@/ui/organisms/RelatedProductList';
 
 type Props = {
   params: {
@@ -15,23 +18,33 @@ type Props = {
 
 export const generateMetadata = async ({ params: { productId } }: Props): Promise<Metadata> => {
   const product = await getProductById(productId);
+  if (!product) {
+    notFound();
+  }
   return {
     title: `Produkt ${product.name}`,
     description: `${product.description}`,
     openGraph: {
       title: `Produkt ${product.name}`,
       description: `${product.description}`,
-      images: [product.image.src],
+      images: product.images,
     },
   };
 };
 
 export default async function ProductPage({ params }: Props) {
   const product = await getProductById(params.productId);
+  if (!product) {
+    notFound();
+  }
+  const relatedProducts = await getProductsList(4);
   return (
     <div>
       <ProductListItem product={product} />
       <span>{product.description}</span>
+      <Suspense>
+        <RelatedProductList products={relatedProducts} />
+      </Suspense>
     </div>
   );
 }

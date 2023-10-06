@@ -5,6 +5,29 @@ const nextConfig = {
     typedRoutes: false,
     mdxRs: true,
   },
+  images: {
+    domains: ['media.graphassets.com'],
+  },
+  redirects: async () => {
+    return [
+      {
+        source: '/products',
+        destination: '/products/1',
+        permanent: false,
+      },
+      {
+        source: '/categories',
+        // TODO
+        destination: '/categories/t-shirts',
+        permanent: false,
+      },
+      {
+        source: '/categories/:category',
+        destination: '/categories/:category/1',
+        permanent: false,
+      },
+    ];
+  },
 };
 
 const withMDX = require('@next/mdx')();

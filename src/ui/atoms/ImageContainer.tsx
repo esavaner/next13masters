@@ -1,15 +1,18 @@
-import { type ProductItemType } from '../types/Products.types';
+import NextImage from 'next/image';
 
-type Props = ProductItemType['image'];
+type Props = {
+  url: string;
+  alt: string;
+};
 
-export const ImageContainer = ({ alt, src }: Props) => {
+export const ImageContainer = ({ url, alt }: Props) => {
   return (
     <div className="aspect-square overflow-hidden rounded-md border bg-slate-50 hover:bg-slate-100">
-      <img
+      <NextImage
         height={320}
         width={320}
         alt={alt}
-        src={src}
+        src={url}
         className="h-full w-full object-cover object-center p-4 transition-transform hover:scale-105"
       />
     </div>
