@@ -14,13 +14,14 @@ export const executeGraphql = async <TResult, TVariables>(
 
   const res = await fetch(process.env.GRAPHQL_API, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: { 'Content-Type': 'application/json', authorization: `Bearer ${process.env.TOKEN}` },
     body: JSON.stringify({ query, variables }),
   });
 
   const gqlRes = (await res.json()) as GQLResponse<TResult>;
 
   if (gqlRes.errors) {
+    console.log(gqlRes.errors);
     throw TypeError('GraphQL Error', { cause: gqlRes.errors });
   }
 

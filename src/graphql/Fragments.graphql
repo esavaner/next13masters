@@ -22,3 +22,17 @@ fragment ProductListItem on Product {
   }
   price
 }
+
+fragment Cart on Order {
+  id
+  orderItems {
+    id
+    quantity
+    total
+    product {
+      id
+      name
+      price
+    }
+  }
+}

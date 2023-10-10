@@ -11,11 +11,11 @@ type Props = {
   };
 };
 
-type CategoryProps = {
-  params: {
-    category: string;
-  };
-};
+// type CategoryProps = {
+//   params: {
+//     category: string;
+//   };
+// };
 
 const PRODUCTS_PER_PAGE = 8;
 
@@ -25,13 +25,13 @@ export const generateMetadata = async ({ params: { category } }: Props): Promise
   };
 };
 
-export const generateStaticParams = async ({ params: { category } }: CategoryProps) => {
-  if (category === 't-shirts') {
-    return [{ pageNumber: '1' }, { pageNumber: '2' }];
-  } else {
-    return [{ pageNumber: '1' }];
-  }
-};
+// export const generateStaticParams = async ({ params: { category } }: CategoryProps) => {
+//   if (category === 't-shirts') {
+//     return [{ pageNumber: '1' }, { pageNumber: '2' }];
+//   } else {
+//     return [{ pageNumber: '1' }];
+//   }
+// };
 
 export default async function CategoryProductPage({ params: { category, pageNumber } }: Props) {
   const products = await getProductsByCategorySlug(

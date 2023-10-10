@@ -1,0 +1,24 @@
+query CartGetById($id: ID) {
+  order(where: { id: $id }, stage: DRAFT) {
+    ...Cart
+  }
+}
+
+mutation CartCreate {
+  createOrder(data: { total: 0 }) {
+    ...Cart
+  }
+}
+
+mutation CartAddProduct($orderId: ID!, $productId: ID!, $total: Int!) {
+  createOrderItem(
+    data: {
+      product: { connect: { id: $productId } }
+      order: { connect: { id: $orderId } }
+      quantity: 1
+      total: $total
+    }
+  ) {
+    id
+  }
+}
