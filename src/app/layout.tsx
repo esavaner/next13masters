@@ -2,7 +2,7 @@ import { Analytics } from '@vercel/analytics/react';
 import './globals.css';
 import type { Metadata } from 'next';
 import { Inter } from 'next/font/google';
-import { ActiveLink } from '@/ui/atoms/ActiveLink';
+import { Navbar } from '@/ui/organisms/Navbar';
 
 const inter = Inter({ subsets: ['latin', 'latin-ext'] });
 
@@ -15,19 +15,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={inter.className}>
-        <nav>
-          <ul>
-            <li>
-              <ActiveLink href="/">Home</ActiveLink>
-            </li>
-            <li>
-              <ActiveLink href="/products">All products</ActiveLink>
-            </li>
-            <li>
-              <ActiveLink href="/categories">Categories</ActiveLink>
-            </li>
-          </ul>
-        </nav>
+        <Navbar />
         <section className="mx-auto max-w-md p-12 sm:max-w-2xl sm:py-16 md:max-w-4xl lg:max-w-7xl">
           {children}
         </section>

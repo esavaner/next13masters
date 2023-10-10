@@ -1,12 +1,12 @@
 import { type Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { Suspense } from 'react';
-import { cookies } from 'next/headers';
 import { AddToCartButton } from './AddToCartButton';
 import { getProductById, getProductsList } from '@/api/products';
 import { ProductListItem } from '@/ui/molecues/ProductListItem';
 import { RelatedProductList } from '@/ui/organisms/RelatedProductList';
 import { addToCart, getOrCreateCart } from '@/api/cart';
+import { revalidateTag } from 'next/cache';
 
 type Props = {
   params: {
@@ -46,8 +46,9 @@ export default async function ProductPage({ params }: Props) {
     'use server';
 
     const cart = await getOrCreateCart();
-    cookies().set('cartId', cart.id, { httpOnly: true });
     await addToCart(cart.id, product);
+
+    revalidateTag('cart');
   };
 
   return (

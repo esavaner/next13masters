@@ -71,6 +71,13 @@
       { "allowNumber": true, "allowBoolean": true }
     ],
 
+    "@typescript-eslint/no-misused-promises": [
+      "error",
+      {
+        "checkVoidReturn": false
+      }
+    ],
+
     "no-restricted-imports": [
       "error",
       {

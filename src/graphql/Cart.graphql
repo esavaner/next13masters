@@ -22,3 +22,15 @@ mutation CartAddProduct($orderId: ID!, $productId: ID!, $total: Int!) {
     id
   }
 }
+
+mutation CartSetProductQuantity($itemId: ID!, $quantity: Int!) {
+  updateOrderItem(where: { id: $itemId }, data: { quantity: $quantity }) {
+    id
+  }
+}
+
+mutation CartRemoveProduct($itemId: ID!) {
+  deleteOrderItem(where: { id: $itemId }) {
+    id
+  }
+}
