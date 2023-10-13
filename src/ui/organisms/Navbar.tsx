@@ -1,5 +1,6 @@
 import { getCartFromCookies } from '@/api/cart';
 import { ActiveLink } from '@/ui/atoms/ActiveLink';
+import { SearchBar } from '../molecues/SearchBar';
 
 export const Navbar = async () => {
   const cart = await getCartFromCookies();
@@ -20,6 +21,7 @@ export const Navbar = async () => {
           </li>
         </ul>
       </nav>
+      <SearchBar />
       <ActiveLink href="/cart">Qt: {quantity}</ActiveLink>
     </div>
   );

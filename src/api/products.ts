@@ -4,6 +4,7 @@ import {
   ProductsGetByCategorySlugDocument,
   ProductGetByIdDocument,
   ProductsCountDocument,
+  ProductsSearchByQueryDocument,
 } from '@/gql/graphql';
 
 export const getProductsList = async (first: number = 20, skip: number = 0) => {
@@ -28,6 +29,14 @@ export const getProductsByCategorySlug = async (
   ).categories[0]?.products;
 
   return products;
+};
+
+export const getProductsBySearchQuery = async (query: string) => {
+  const res = await executeGraphql({
+    query: ProductsSearchByQueryDocument,
+    variables: { query },
+  });
+  return res.products;
 };
 
 export const getProductById = async (id: string) => {

@@ -17,3 +17,9 @@ query ProductsCount {
     }
   }
 }
+
+query ProductsSearchByQuery($query: String!) {
+  products(where: { name_contains: $query }) {
+    ...ProductListItem
+  }
+}

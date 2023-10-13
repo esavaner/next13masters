@@ -18,7 +18,7 @@ const documents = {
     "query ProductsGetByCategorySlug($slug: String!, $skip: Int!, $first: Int!) {\n  categories(where: {slug: $slug}) {\n    products(skip: $skip, first: $first) {\n      ...ProductListItem\n    }\n  }\n}": types.ProductsGetByCategorySlugDocument,
     "query CollectionBySlug($slug: String!) {\n  collections(where: {slug: $slug}) {\n    ...CollectionListItem\n    products {\n      ...ProductListItem\n    }\n  }\n}\n\nquery CollectionsGetList {\n  collections {\n    ...CollectionListItem\n  }\n}": types.CollectionBySlugDocument,
     "fragment ProductItem on Product {\n  id\n  name\n  description\n  categories(first: 1) {\n    name\n  }\n  images(first: 1) {\n    url\n  }\n  price\n}\n\nfragment ProductListItem on Product {\n  id\n  name\n  categories(first: 1) {\n    name\n  }\n  images(first: 1) {\n    url\n  }\n  price\n}\n\nfragment Cart on Order {\n  id\n  orderItems {\n    id\n    quantity\n    total\n    product {\n      id\n      name\n      price\n    }\n  }\n}\n\nfragment CollectionListItem on Collection {\n  id\n  name\n  slug\n}": types.ProductItemFragmentDoc,
-    "query ProductGetById($id: ID!) {\n  products(where: {id: $id}) {\n    ...ProductItem\n  }\n}\n\nquery ProductsGetList($skip: Int!, $first: Int!) {\n  products(skip: $skip, first: $first) {\n    ...ProductListItem\n  }\n}\n\nquery ProductsCount {\n  productsConnection {\n    aggregate {\n      count\n    }\n  }\n}": types.ProductGetByIdDocument,
+    "query ProductGetById($id: ID!) {\n  products(where: {id: $id}) {\n    ...ProductItem\n  }\n}\n\nquery ProductsGetList($skip: Int!, $first: Int!) {\n  products(skip: $skip, first: $first) {\n    ...ProductListItem\n  }\n}\n\nquery ProductsCount {\n  productsConnection {\n    aggregate {\n      count\n    }\n  }\n}\n\nquery ProductsSearchByQuery($query: String!) {\n  products(where: {name_contains: $query}) {\n    ...ProductListItem\n  }\n}": types.ProductGetByIdDocument,
 };
 
 /**
@@ -40,7 +40,7 @@ export function graphql(source: "fragment ProductItem on Product {\n  id\n  name
 /**
  * The graphql function is used to parse GraphQL queries into a document that can be used by GraphQL clients.
  */
-export function graphql(source: "query ProductGetById($id: ID!) {\n  products(where: {id: $id}) {\n    ...ProductItem\n  }\n}\n\nquery ProductsGetList($skip: Int!, $first: Int!) {\n  products(skip: $skip, first: $first) {\n    ...ProductListItem\n  }\n}\n\nquery ProductsCount {\n  productsConnection {\n    aggregate {\n      count\n    }\n  }\n}"): typeof import('./graphql').ProductGetByIdDocument;
+export function graphql(source: "query ProductGetById($id: ID!) {\n  products(where: {id: $id}) {\n    ...ProductItem\n  }\n}\n\nquery ProductsGetList($skip: Int!, $first: Int!) {\n  products(skip: $skip, first: $first) {\n    ...ProductListItem\n  }\n}\n\nquery ProductsCount {\n  productsConnection {\n    aggregate {\n      count\n    }\n  }\n}\n\nquery ProductsSearchByQuery($query: String!) {\n  products(where: {name_contains: $query}) {\n    ...ProductListItem\n  }\n}"): typeof import('./graphql').ProductGetByIdDocument;
 
 
 export function graphql(source: string) {

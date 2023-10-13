@@ -10800,6 +10800,13 @@ export type ProductsCountQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type ProductsCountQuery = { productsConnection: { aggregate: { count: number } } };
 
+export type ProductsSearchByQueryQueryVariables = Exact<{
+  query: Scalars['String']['input'];
+}>;
+
+
+export type ProductsSearchByQueryQuery = { products: Array<{ id: string, name: string, price: number, categories: Array<{ name: string }>, images: Array<{ url: string }> }> };
+
 export class TypedDocumentString<TResult, TVariables>
   extends String
   implements DocumentTypeDecoration<TResult, TVariables>
@@ -11023,3 +11030,20 @@ export const ProductsCountDocument = new TypedDocumentString(`
   }
 }
     `) as unknown as TypedDocumentString<ProductsCountQuery, ProductsCountQueryVariables>;
+export const ProductsSearchByQueryDocument = new TypedDocumentString(`
+    query ProductsSearchByQuery($query: String!) {
+  products(where: {name_contains: $query}) {
+    ...ProductListItem
+  }
+}
+    fragment ProductListItem on Product {
+  id
+  name
+  categories(first: 1) {
+    name
+  }
+  images(first: 1) {
+    url
+  }
+  price
+}`) as unknown as TypedDocumentString<ProductsSearchByQueryQuery, ProductsSearchByQueryQueryVariables>;
