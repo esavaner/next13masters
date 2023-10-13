@@ -9,6 +9,7 @@ export const AddToCartButton = () => {
       type="submit"
       className="rounded-sm disabled:cursor-wait disabled:bg-slate-300"
       disabled={formStatus.pending}
+      data-testid="add-to-cart-button"
     >
       Add to cart
     </button>

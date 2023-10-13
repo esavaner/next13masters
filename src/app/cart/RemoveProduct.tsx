@@ -1,8 +1,8 @@
 'use client';
 
 import { useTransition } from 'react';
-import { removeItem } from './actions';
 import { useRouter } from 'next/navigation';
+import { removeItem } from './actions';
 
 type Props = {
   itemId: string;

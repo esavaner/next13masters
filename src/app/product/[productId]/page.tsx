@@ -7,6 +7,7 @@ import { ProductListItem } from '@/ui/molecues/ProductListItem';
 import { RelatedProductList } from '@/ui/organisms/RelatedProductList';
 import { addToCart, getOrCreateCart } from '@/api/cart';
 import { revalidateTag } from 'next/cache';
+import { changeItemQuantity } from './actions';
 
 type Props = {
   params: {
@@ -44,10 +45,13 @@ export default async function ProductPage({ params }: Props) {
 
   const addToCartAction = async (_formData: FormData) => {
     'use server';
-
     const cart = await getOrCreateCart();
-    await addToCart(cart.id, product);
-
+    const existingItem = cart.orderItems.find((item) => item.product?.id === product.id);
+    if (existingItem) {
+      await changeItemQuantity(existingItem.id, existingItem.quantity + 1);
+    } else {
+      await addToCart(cart.id, product);
+    }
     revalidateTag('cart');
   };
 

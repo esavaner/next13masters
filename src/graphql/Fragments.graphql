@@ -36,3 +36,9 @@ fragment Cart on Order {
     }
   }
 }
+
+fragment CollectionListItem on Collection {
+  id
+  name
+  slug
+}

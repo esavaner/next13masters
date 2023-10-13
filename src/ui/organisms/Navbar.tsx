@@ -6,21 +6,21 @@ export const Navbar = async () => {
   const quantity = cart?.orderItems.reduce((acc, val) => acc + val.quantity, 0) ?? 0;
 
   return (
-    <nav>
-      <ul>
-        <li>
-          <ActiveLink href="/">Home</ActiveLink>
-        </li>
-        <li>
-          <ActiveLink href="/products">All products</ActiveLink>
-        </li>
-        <li>
-          <ActiveLink href="/categories">Categories</ActiveLink>
-        </li>
-        <li>
-          <ActiveLink href="/cart">Qt: {quantity}</ActiveLink>
-        </li>
-      </ul>
-    </nav>
+    <div>
+      <nav>
+        <ul>
+          <li>
+            <ActiveLink href="/">Home</ActiveLink>
+          </li>
+          <li>
+            <ActiveLink href="/products">All products</ActiveLink>
+          </li>
+          <li>
+            <ActiveLink href="/categories">Categories</ActiveLink>
+          </li>
+        </ul>
+      </nav>
+      <ActiveLink href="/cart">Qt: {quantity}</ActiveLink>
+    </div>
   );
 };

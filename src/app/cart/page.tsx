@@ -4,6 +4,7 @@ import { ChangeProductQuantity } from './IcrementProductQuntity';
 import { getCartFromCookies } from '@/api/cart';
 import { formatPrice } from '@/utils';
 import { RemoveButton } from './RemoveProduct';
+import { handlePayment } from './actions';
 
 export default async function CartPage() {
   const cart = await getCartFromCookies();
@@ -40,6 +41,11 @@ export default async function CartPage() {
           )}
         </tbody>
       </table>
+      <form>
+        <button type="submit" formAction={handlePayment}>
+          Checkout
+        </button>
+      </form>
     </div>
   );
 }
