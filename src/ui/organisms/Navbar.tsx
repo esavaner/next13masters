@@ -1,10 +1,10 @@
-import { getCartFromCookies } from '@/api/cart';
+// import { getCartFromCookies } from '@/api/cart';
 import { ActiveLink } from '@/ui/atoms/ActiveLink';
 import { SearchBar } from '../molecues/SearchBar';
 
 export const Navbar = async () => {
-  const cart = await getCartFromCookies();
-  const quantity = cart?.orderItems.reduce((acc, val) => acc + val.quantity, 0) ?? 0;
+  // const cart = await getCartFromCookies();
+  // const quantity = cart?.orderItems.reduce((acc, val) => acc + val.quantity, 0) ?? 0;
 
   return (
     <div>
@@ -22,7 +22,8 @@ export const Navbar = async () => {
         </ul>
       </nav>
       <SearchBar />
-      <ActiveLink href="/cart">Qt: {quantity}</ActiveLink>
+      <ActiveLink href="/cart">Cart</ActiveLink>
+      {/* <ActiveLink href="/cart">Qt: {quantity}</ActiveLink> */}
     </div>
   );
 };
