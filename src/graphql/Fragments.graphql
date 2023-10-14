@@ -9,6 +9,7 @@ fragment ProductItem on Product {
     url
   }
   price
+  rating
 }
 
 fragment ProductListItem on Product {
@@ -21,6 +22,7 @@ fragment ProductListItem on Product {
     url
   }
   price
+  rating
 }
 
 fragment Cart on Order {

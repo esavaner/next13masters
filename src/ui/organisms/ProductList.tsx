@@ -1,30 +1,43 @@
 'use client';
 
 import { ProductListItem } from '../molecues/ProductListItem';
-import { ProductOrderByInput, type ProductListItemFragment } from '@/gql/graphql';
-import { SortBy } from '@/ui/molecues/SortBy';
+import { type ProductListItemFragment } from '@/gql/graphql';
 import { useState } from 'react';
+import { SortByRating } from '../molecues/SortByRating';
+import { SortByPrice } from '../molecues/SortByPrice';
 
 type Props = {
   products: ProductListItemFragment[];
 };
 
 export const ProductList = ({ products }: Props) => {
-  const [sortBy, setSortBy] = useState<ProductOrderByInput>();
+  const [sortPrice, setSortPrice] = useState<string>();
+  const [sortRating, setSortRating] = useState<string>();
 
-  const sortedProducts = products.sort((a, b) => {
-    if (sortBy === 'price_ASC') {
-      return a.price - b.price;
-    }
-    if (sortBy === 'price_DESC') {
-      return b.price - a.price;
-    }
-    return 0;
-  });
+  const sortedProducts = products
+    .sort((a, b) => {
+      if (sortPrice === 'price_ASC') {
+        return a.price - b.price;
+      }
+      if (sortPrice === 'price_DESC') {
+        return b.price - a.price;
+      }
+      return 0;
+    })
+    .sort((a, b) => {
+      if (sortRating === 'rating_ASC') {
+        return a.rating && b.rating ? a.rating - b.rating : 0;
+      }
+      if (sortRating === 'rating_DESC') {
+        return a.rating && b.rating ? b.rating - a.rating : 0;
+      }
+      return 0;
+    });
 
   return (
     <>
-      <SortBy handleSort={(value) => setSortBy(value)} />
+      <SortByPrice handleSort={(value) => setSortPrice(value)} />
+      <SortByRating handleSort={(value) => setSortRating(value)} />
       <ul
         data-testid="products-list"
         className="grid grid-cols-1 gap-8 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4"

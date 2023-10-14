@@ -1,21 +1,19 @@
 'use client';
 
-import { ProductOrderByInput } from '@/gql/graphql';
-
 type Props = {
-  handleSort: (value: ProductOrderByInput) => void;
+  handleSort: (value: string) => void;
 };
 
 type OptionArray = {
   label: string;
-  value?: ProductOrderByInput;
+  value?: string;
   testId?: string;
 };
 
-export const SortBy = ({ handleSort }: Props) => {
+export const SortByPrice = ({ handleSort }: Props) => {
   const options: OptionArray[] = [
     {
-      label: 'Sort by',
+      label: 'Sort by price',
     },
     {
       value: 'price_ASC',
@@ -30,7 +28,7 @@ export const SortBy = ({ handleSort }: Props) => {
   ];
 
   return (
-    <select onChange={(e) => handleSort(e.target.value as ProductOrderByInput)}>
+    <select onChange={(e) => handleSort(e.target.value)}>
       {options.map((option) => (
         <option value={option.value} key={option.label} data-testid={option.testId}>
           {option.label}
