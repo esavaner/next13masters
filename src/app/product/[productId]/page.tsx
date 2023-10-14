@@ -8,6 +8,7 @@ import { RelatedProductList } from '@/ui/organisms/RelatedProductList';
 import { addToCart, getOrCreateCart } from '@/api/cart';
 import { revalidateTag } from 'next/cache';
 import { changeItemQuantity } from './actions';
+import { ReviewForm } from '@/ui/organisms/ReviewForm';
 
 type Props = {
   params: {
@@ -66,6 +67,7 @@ export default async function ProductPage({ params }: Props) {
       <Suspense>
         <RelatedProductList products={relatedProducts} />
       </Suspense>
+      <ReviewForm />
     </div>
   );
 }
